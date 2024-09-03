@@ -57,7 +57,7 @@ Passaremos pelos seguintes níveis de análise:
 
 Para nosso Laboratório faremos uso de máquina Virtual e para tanto podemos escolher entre as seguintes opções:
 
-1. vmare
+1. vmware
     - [Link para página de Download](https://access.broadcom.com/default/ui/v1/signin/)
 1. VirtualBox
     - [Link para página de Download](https://www.virtualbox.org/wiki/Downloads)
