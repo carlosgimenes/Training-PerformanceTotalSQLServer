@@ -50,3 +50,30 @@ Passaremos pelos seguintes níveis de análise:
 - Monitoramento e Diagnóstico de Performance
 
 ![img-NiveisMonitoramento.png](./Imagens/NiveisMonitoramento.png)
+
+---
+
+## Preparação do Laboratório do Treinamento
+
+Para nosso Laboratório faremos uso de máquina Virtual e para tanto podemos escolher entre as seguintes opções:
+
+1. vmare
+    - [Link para página de Download](https://access.broadcom.com/default/ui/v1/signin/)
+1. VirtualBox
+    - [Link para página de Download](https://www.virtualbox.org/wiki/Downloads)
+1. Vagrant
+    - [Link para página de Download](https://developer.hashicorp.com/vagrant/install)
+
+Para o servidor onde o SQL Server irá rodar, utilizaremos o Windows Server 2019 Evaluation Edition (ISO)
+
+- [Link para página de Download](https://info.microsoft.com/ww-landing-windows-server-2019.html?lcid=pt-BR)
+
+Para o servidor SQL Server, utilizaremos:
+
+- SQL Server 2019 Developer Edition
+    - [Link para página de Download](https://info.microsoft.com/ww-landing-sql-server-2019.html?lcid=pt-BR)
+- SQL Server Management Studio (SSMS)
+    - [Link para página de Download](https://learn.microsoft.com/pt-br/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
+- Banco de Dados de Exemplo (AdventureWorks sample database)
+    - [Link para página de Downloads](https://github.com/Microsoft/sql-server-samples/releases/tag/wide-world-importers-v1.0)
+        - _Escolha por WideWorldImporters-Full.bak_
