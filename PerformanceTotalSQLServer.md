@@ -138,27 +138,27 @@ Instalar SQL Server com as seguintes características:
 
 - Specify SQL Server media download target location
     - Media Location = C:\Softwares_Arquivos\SQL2019
-    - Specify the edition of SQL Server 2019 to install = Developer
-    - Features Selection:
-        - Database Engine Services
-        - SQL Server Replication
-        - Integration Services
-        - Client Tools Connectivity
+- Specify the edition of SQL Server 2019 to install = Developer
+- Features Selection:
+    - Database Engine Services
+    - SQL Server Replication
+    - Integration Services
+    - Client Tools Connectivity
         - Client Tools SDK
-    - Features Rules:
-        - Instance root directory = C:\Program Files\Microsoft SQL Server\
-        - Shared feature directory = C:\Program Files\Microsoft SQL Server\
-        - Shared feature directory (x86) = C:\Program Files (x86)\Microsoft SQL Server\
-    - Instance Configuration:
-        - Named instance = SQL2019DEMO
-        - Instance ID = SQL2019DEMO
-    - Server Configuration:
-        - Service Accounts = Ficou com as opções Default
-        - Collation = Ficou com as opções Default
-    - Database Engine Configuration:
-        - Server Configuration
-            - Authentication Mode = Mixed Mode (SQL Server authentication and Windows authentication)
-            - Add Current User = SQL-WIN-01\Administrator
+- Features Rules:
+    - Instance root directory = C:\Program Files\Microsoft SQL Server\
+    - Shared feature directory = C:\Program Files\Microsoft SQL Server\
+    - Shared feature directory (x86) = C:\Program Files (x86)\Microsoft SQL Server\
+- Instance Configuration:
+    - Named instance = SQL2019DEMO
+    - Instance ID = SQL2019DEMO
+- Server Configuration:
+    - Service Accounts = Ficou com as opções Default
+    - Collation = Ficou com as opções Default
+- Database Engine Configuration:
+    - Server Configuration
+        - Authentication Mode = Mixed Mode (SQL Server authentication and Windows authentication)
+        - Add Current User = SQL-WIN-01\Administrator
         - Data Directories
             - Ficou com as opções Default
         - TempDB
@@ -177,21 +177,21 @@ Instalar SQL Server com as seguintes características:
 ### Onde o SGBD está instalado?
 
 Identificar Recursos do Servidor em termos de hardware
-    - CPU
-    - Memória
-    - Disco
-    - Rede
+- CPU
+- Memória
+- Disco
+- Rede
 
 Devemos ter cuidado com limitações de certas versões de Sistema Operacional
-    - CPU
-    - Memória
-    - Disco
-    - Rede
-    - Suporte Técnico
+- CPU
+- Memória
+- Disco
+- Rede
+- Suporte Técnico
 
 Qual o tipo de Servidor no qual o SGBD está instalado:
-    - Virtual
-    - Físico (Bare Metal)
+- Virtual
+- Físico (Bare Metal)
 
 ### Visão geral da Arquitetura de Virtualização
 
@@ -288,3 +288,16 @@ Em resumo, o vNUMA ajuda a otimizar a performance de VMs em servidores com múlt
 É um recurso de hardware que permite rodar 2 threads num mesmo core físico, fazendo com que tarefas sejam executadas em paralelo.
 - Permite 1 CPU core operar 2 threads de uma vez, mas não dobra a performance da CPU
 - Aumento de ganho de performance em torno de 25% - 30%
+
+## Lições Aprendidas
+
+> *"Até aqui, vimos que a otimização do SQL Server deve ser planejada desde a fase de design, evitando problemas em produção. Recursos de hardware, como CPU e memória, devem ser ajustados com cautela, especialmente em ambientes virtualizados, considerando fatores como NUMA e soft-NUMA. O uso de Hyper-threading pode melhorar a performance, mas com ganhos limitados, em torno de  25% a 30%. Monitorar o servidor regularmente e ajustar seus recursos deve ser uma prática contínua. Ferramentas como o SQL Server Profiler e o Query Store são essenciais para identificar e solucionar problemas de performance".*
+
+---
+
+## CPU HyperThreading: Turbinando meu SQL Server
+
+### CPU Overcommit
+
+- Ocorre quando tem mais vCPUs rodando no host do que o número de cores físicos presentes
+- Tente manter o número de vCPUs não maior do que o número de cores físicos no host
