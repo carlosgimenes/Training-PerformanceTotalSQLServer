@@ -487,4 +487,55 @@ Parâmetros a serem verificados:
 ```
 Wmic partition get Blocksize, StartingOffset, Name, Index
 ```
+
 ![img-WmicRetornoPartitionHabilitado.png](./Imagens/WmicRetornoPartitionHabilitado.png)
+
+- **Verificar o tamanho do bloco de dados**:
+    - Abra um prompt de comando como administrador e digite
+
+```
+FSutil FSinfo NTFSinfo <drive>
+```
+![img-TamanhoBlocosDados.png](./Imagens/TamanhoBlocosDados.png)
+
+Neste exemplo observamos que o valor está definido em blocos de 4k (4096 bytes), não sendo o valor ideal para diretórios onde estão armazenados arquivos de Banco de Dados.
+
+O valor observado em "**Partition_StartingOffset**" ao ser dividido por 1048576 deve retornar um valor "**Inteiro**", para garantir que as Partições estejam alinhadas. Caso o valor seja um número "**Qebrado**", recomenda-se a correção do alinhamento. Lembre-se:
+- Estas correções devem ser feitas pelo Administrador do Sistema
+- CUIDADO: as partições terão que ser recriadas e reformatadas, lembre-se de fazer Backup antes do realizar o procedimento
+
+## Performance no Nível do Sistema Operacional: Power Management e Antivírus
+
+### Power Management
+
+Configure o Power Management Plan para o modo "**High Performance**", que pode ser configurado tanto no nível da BIOS como do Sistema Operacional.
+
+![img-PowerManagement.png](./Imagens/PowerManagement.png)
+
+**Exercício: Verificar/Ajustar configuração do power management plan (nível SO)**
+
+- Em Control Panel, localize por System and Security, em seguida por Power Options, certifique-se que a opção "**High Performace**" esteja marcada (ver exemplo abaixo)
+
+![img-PowerManagementHighPerformance.png](./Imagens/PowerManagementHighPerformance.png)
+
+### Antivírus
+
+Caso o Servidor de Banco de Dados tenha um Antivírus instalado, cuide para que diretórios de Bancod de Dados e Serviços do SQL Server estejam como exceções.
+
+Na imagem abaixo encontramos as definições dos arquivos de dados e logs do SQL Server, para servir de referência:
+
+![img-DefinicaoArquivosDadosLogs.png](./Imagens/DefinicaoArquivosDadosLogs.png)
+
+## Ajustes de Performance no nível do Sistema Operacional: Memória, Disco e Rede
+
+### Placa de Rede
+
+Configure o parâmetro "**Receive Side Scalling (RSS)**" para "**Enable**", ele permite distribuir o tráfego de dados que chega pela placa de rede entre múltiplas CPUs, por padrão este parâmetro poderá estar desabilitado. Na ilustração abaixo observamos o que acontece quando ele está ou não habilitado.
+
+![img-RedeParametroRSS.png](./Imagens/RedeParametroRSS.png)
+
+**Exercício: Verificar se o Receive Side Scaling (RSS) está habilitado na interface de rede**
+
+- Em Control Panel, localize por Network and Internet, em seguida clique em Network and Sharing Center, do lado esquerdo clique em Change adapter settings, em seguida clique com o botão direito sobre a placa de rede e selecione Properties e clique no botão Configure, selecione a Guia Advanced e procure por "**Receive Side Scaling**" e altere para "**Enable**", caso não esteja com este valor. Na figura abaixo podemos observar que este parâmetro está desabilitado:
+
+![img-RedeConfiguracaoRSS.png](./Imagens/RedeConfiguracaoRSS.png)
