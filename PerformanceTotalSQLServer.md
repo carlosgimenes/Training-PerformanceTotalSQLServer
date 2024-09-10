@@ -294,10 +294,110 @@ Em resumo, o vNUMA ajuda a otimizar a performance de VMs em servidores com múlt
 > *"Até aqui, vimos que a otimização do SQL Server deve ser planejada desde a fase de design, evitando problemas em produção. Recursos de hardware, como CPU e memória, devem ser ajustados com cautela, especialmente em ambientes virtualizados, considerando fatores como NUMA e soft-NUMA. O uso de Hyper-threading pode melhorar a performance, mas com ganhos limitados, em torno de  25% a 30%. Monitorar o servidor regularmente e ajustar seus recursos deve ser uma prática contínua. Ferramentas como o SQL Server Profiler e o Query Store são essenciais para identificar e solucionar problemas de performance".*
 
 ---
+n
+## Storage - Como definir o melhor modelo de Armazenamento de Dados e Tecnologia
 
-## CPU HyperThreading: Turbinando meu SQL Server
+Sub-sistemas de maior impacto na performance
+- Disco Rígido
 
-### CPU Overcommit
+Tipos mais comuns de Disco Rígido
 
-- Ocorre quando tem mais vCPUs rodando no host do que o número de cores físicos presentes
-- Tente manter o número de vCPUs não maior do que o número de cores físicos no host
+![img-TiposDiscoRigido.png](./Imagens/TiposDiscoRigido.png)
+
+Tipos mais comuns de Array de Discos (RAID)
+
+![img-TiposArrayDiscosRAID.png](./Imagens/TiposArrayDiscosRAID.png)
+
+**RAID 0**
+
+- Mínimo de 2 discos
+- Dados são distribuidos entre eles (stripping)
+- Ótimo desempenho para leitura/escrita
+- Baixo nível de segurança dos dados (não recomendado para aplicações críticas)
+
+**RAID 1**
+
+- Mínimo de 2 discos
+- Dados são espelhados
+- Ótimo desempenho para leitura, baixo para escrita
+- Perda de espaço em disco devido ao espelhamento
+- Alto nível de segurança dos dados
+
+**RAID 5**
+
+- Mínimo de 3 discos
+- Paridade permite reconstruir dados perdidos de um disco
+- Bom desempenho para escrita/leitura, sendo melhor para leitura
+
+**RAID 10**
+
+- RAID 1 + RAID0
+- Mínimo de 4 discos
+- Pode suportar perda de mais de 1 disco
+- Maior performance de escrita e leitura mantendo boa redundância
+- Altamente recomendado para aplicações críticas
+
+![img-ConfiguracaoRAID10.png](./Imagens/ConfiguracaoRAID10.png)
+
+**Tipos mais comuns de Tier**
+
+![img-TiposComunsTier.png](./Imagens/TiposComunsTier.png)
+
+**Ilustração de configuração de uma Storage Area Networks (SAN)**
+
+![img-StorageAreaNetwork.png](./Imagens/StorageAreaNetwork.png)
+
+**Conectando todas estas tecnologias e vizualizando dentro da VM**
+
+![img-TecnoloviaStorageVM.png](./Imagens/TecnoloviaStorageVM.png)
+
+Utilização otimizada do Storage para melhor performance do Banco de Dados
+- RAID 10 para Dados, Logs e Tempdb
+- Dados, Logs e Tempdb em VMDKs/VHDXs separados
+- Mapeamento 1:1 entre VMDKs e LUN
+- Utilizar SAS SSD drives sempre que possível
+- Desabilitar deduplicação e compressão para Banco de Dados críticos em escrita (OLTP)
+    - Deduplicação: busca eliminar dados redundantes, criando ponteiros para representá-los
+    - Compressão: elimina informação desnecessária para representar o dado
+- Cuidado com operações de Snapshots, pois podem impactar na performance
+
+Exemplo de Deduplicação
+
+![img-IlustracaoDeduplicacao.png](./Imagens/IlustracaoDeduplicacao.png)
+
+Exemplo de Compressão
+
+![img-IlustracaoCompressao.png](./Imagens/IlustracaoCompressao.png)
+
+## IO: Como configurar os Discos para turbinar a Transferência de Dados
+
+**Visão do conceito de VSS (Volume Shadow Copy Service)**
+
+![img-VolumeShadowCopyService.png](./Imagens/VolumeShadowCopyService.png)
+
+O VSS é um serviço que roda em Backgroud e quando inicializado, cria um Snapshot do estado atual da máquina, neste momento o IO é pausado, provocando uma latência no SQL Server naquele momento, desta forma torna-se importante saber quando é rodado e qual sua frequência, para saber se está dentro da janela de manutenção definida, minimizando seus impactos.
+
+**Alinhamento de Partições**
+
+- O desalinhamento de partições casa degradação de performance no nível de IO
+- Discos propriamente alinhados podem significar ganho de até 30% na performance
+
+![img-AlinhamentoParticoes.png](./Imagens/AlinhamentoParticoes.png)
+
+Parâmetros a serem verificados:
+- O valor padrão ideal de **StartingOffset** é de 1024KB (mostrado como 1048576 bytes no sistema)
+- O valor de Allocation Unit (bytes per Cluster): 64KB (recomendado pela Microsoft)
+
+**Exercício: Como verificar se as partições estão alinhadas corretamente**
+
+- **Opção 1**
+    - Ferramenta: System Information
+    ![img-PartitionStartingOffset-Grafico.png](./Imagens/PartitionStartingOffset-Grafico.png)
+
+- **Opção 2**
+    - Abra um prompt de comando como administrador e digite:
+
+```
+Wmic partition get Blocksize, StartingOffset, Name, Index
+```
+![img-WmicRetornoPartitionHabilitado.png](./Imagens/WmicRetornoPartitionHabilitado.png)
