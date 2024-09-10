@@ -294,7 +294,7 @@ Em resumo, o vNUMA ajuda a otimizar a performance de VMs em servidores com múlt
 > *"Até aqui, vimos que a otimização do SQL Server deve ser planejada desde a fase de design, evitando problemas em produção. Recursos de hardware, como CPU e memória, devem ser ajustados com cautela, especialmente em ambientes virtualizados, considerando fatores como NUMA e soft-NUMA. O uso de Hyper-threading pode melhorar a performance, mas com ganhos limitados, em torno de  25% a 30%. Monitorar o servidor regularmente e ajustar seus recursos deve ser uma prática contínua. Ferramentas como o SQL Server Profiler e o Query Store são essenciais para identificar e solucionar problemas de performance".*
 
 ---
-n
+
 ## Storage - Como definir o melhor modelo de Armazenamento de Dados e Tecnologia
 
 Sub-sistemas de maior impacto na performance
