@@ -295,6 +295,86 @@ Em resumo, o vNUMA ajuda a otimizar a performance de VMs em servidores com múlt
 
 ---
 
+## CPU HyperThreading: Turbinando meu SQL Server
+
+### CPU Overcommit
+
+- Ocorre quando tem mais vCPUs rodando no host do que o número de cores físicos presentes
+- Tente manter o número de vCPUs não maior do que o número de cores físicos no host
+
+**Exercício: Como verificar se hyperthreading está habilitado**
+
+- Abra um prompt de comando como administrador e digite:
+
+```
+Wmic CPU Get NumberOfCores, NumberOfLogicalProcessors /Format:List
+```
+![img-WmicRetornoHyperthreadingHabilitado.png](./Imagens/WmicRetornoHyperthreadingHabilitado.png)
+Para habilitar o hyperthreading
+
+- BIOS
+- Camada do Hypervisor
+
+## Arquitetura de Memória Física e Virtual otimizada para melhor Performance
+
+Sub-sistemas de maior impacto na performance
+- Memória
+
+**Arquitetura de Memória**
+
+![img-MemoriaMaquinasVirtuais.png](./Imagens/MemoriaMaquinasVirtuais.png)
+
+Problemas comuns relacionados a Memória Virtual
+- Memory swapping: OS utiliza o arquivo de swap na falta de memória física
+- Memory balloning: hupervisor reclama a memória não utilizada pela máquina virtual
+
+Funcionamento da Memória em Máquinas Virtuais
+
+![img-FuncionamentoMemoriaVMs.png](./Imagens/FuncionamentoMemoriaVMs.png)
+
+Parâmetros recomendados de Memória
+- Não abuse do recurso de memória dinâmica - habilite por VM host
+- Cuidado para que _**overcommit e undercommit**_ de memória não impacte a performance
+
+Cuidado com overcommit de memória no host SQL Server
+- Overcommit permite alocar mais memória para a VM do que existe fisicamente no host
+
+Parâmetros recomendados de Memória
+- Reserve memória mínima para o servidor de Banco de Dados, se possível
+- Configurar prioridade de memória para VMs críticas
+
+Configurações essenciais de performance
+- Considerar a opção de não utilizar memória dinâmica, mas fixa para servidor de Banco de Dados
+
+Devemos tentar evitar memory paging a todo custo
+- Configurar o memory reserved com o mesmo tamanho do parâmetro memory provisioned
+- Desabilite o parâmetro de memory ballooning
+
+## Reforçando os conceitos
+
+### Memory Swapping
+**Memory swapping** ocorre quando o sistema operacional move páginas de memória da RAM para o disco (swap file) para liberar espaço na memória física. Isso pode acontecer quando a demanda de memória excede a quantidade de RAM disponível. Embora o swapping permita que o sistema continue funcionando, ele pode causar uma degradação significativa no desempenho, pois o acesso ao disco é muito mais lento que o acesso à RAM².
+
+### Memory Ballooning
+**Memory ballooning** é uma técnica usada em ambientes virtualizados para gerenciar a memória de forma mais eficiente. Um driver especial, chamado de "balloon driver", é instalado na máquina virtual (VM). Quando o host precisa de mais memória, o balloon driver "infla", solicitando memória da VM, que então libera essa memória de volta para o host. Isso ajuda a evitar o uso excessivo de swap, mas pode impactar o desempenho da VM se não for gerenciado corretamente².
+
+### Overcommit
+**Overcommit** refere-se à prática de alocar mais memória virtual para as VMs do que a memória física disponível no host. Isso é possível porque nem todas as VMs usam toda a memória alocada ao mesmo tempo. No entanto, se todas as VMs tentarem usar sua memória máxima simultaneamente, o host pode ficar sem memória, levando a swapping e degradação de desempenho².
+
+### Relação com SQL Server
+No contexto do SQL Server, esses conceitos são importantes para entender como a memória é gerenciada em ambientes virtualizados:
+
+- **Swapping**: Deve ser minimizado, pois pode causar lentidão significativa nas operações do SQL Server.
+- **Ballooning**: Pode ser útil para liberar memória em situações de alta demanda, mas deve ser monitorado para evitar impactos negativos no desempenho do SQL Server.
+- **Overcommit**: Permite uma utilização mais eficiente dos recursos de memória, mas requer um monitoramento cuidadoso para evitar problemas de desempenho devido à falta de memória física.
+
+### Cuidados Adicionais
+- **Monitoramento Contínuo**: Use ferramentas de monitoramento para acompanhar o uso de memória e identificar problemas de swapping ou ballooning.
+- **Configurações Adequadas**: Configure limites de memória apropriados para o SQL Server e as VMs para evitar overcommit excessivo.
+- **Planejamento de Capacidade**: Planeje a capacidade de memória com base nas necessidades reais de uso para minimizar os riscos associados ao overcommit.
+
+---
+
 ## Storage - Como definir o melhor modelo de Armazenamento de Dados e Tecnologia
 
 Sub-sistemas de maior impacto na performance
