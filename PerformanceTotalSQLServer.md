@@ -357,8 +357,8 @@ Utilização otimizada do Storage para melhor performance do Banco de Dados
 - Mapeamento 1:1 entre VMDKs e LUN
 - Utilizar SAS SSD drives sempre que possível
 - Desabilitar deduplicação e compressão para Banco de Dados críticos em escrita (OLTP)
-    - Deduplicação: busca eliminar dados redundantes, criando ponteiros para representá-los
-    - Compressão: elimina informação desnecessária para representar o dado
+    - **Deduplicação**: busca eliminar dados redundantes, criando ponteiros para representá-los
+    - **Compressão**: elimina informação desnecessária para representar o dado
 - Cuidado com operações de Snapshots, pois podem impactar na performance
 
 Exemplo de Deduplicação
@@ -379,7 +379,7 @@ O VSS é um serviço que roda em Backgroud e quando inicializado, cria um Snapsh
 
 **Alinhamento de Partições**
 
-- O desalinhamento de partições casa degradação de performance no nível de IO
+- O desalinhamento de partições causa degradação de performance no nível de IO
 - Discos propriamente alinhados podem significar ganho de até 30% na performance
 
 ![img-AlinhamentoParticoes.png](./Imagens/AlinhamentoParticoes.png)
