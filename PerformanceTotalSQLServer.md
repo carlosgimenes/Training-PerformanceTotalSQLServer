@@ -331,7 +331,7 @@ Tipos mais comuns de Array de Discos (RAID)
 
 **RAID 10**
 
-- RAID 1 + RAID0
+- RAID 1 + RAID 0
 - Mínimo de 4 discos
 - Pode suportar perda de mais de 1 disco
 - Maior performance de escrita e leitura mantendo boa redundância
