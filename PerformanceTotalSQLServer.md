@@ -7,10 +7,11 @@
 ### **Início**: 03/09/2024
 ### **Término**: 
 
-
 ---
 
-## Introdução
+## Seção 1: Introdução: Visão Geral do Curso Performance Total no SQL Server
+
+### Introdução
 
 - Tarefas devem ser executadas dentro de um tempo aceitável
 - Empresas menores, performance normalmente é colocada de lado, problemas são observados em geral quando já está em produção
@@ -53,7 +54,9 @@ Passaremos pelos seguintes níveis de análise:
 
 ---
 
-## Preparação do Laboratório do Treinamento
+## Seção 2: Preparação do Ambiente para o Curso Performance Total no SQL Server
+
+### Preparação do Laboratório do Treinamento
 
 Para nosso Laboratório faremos uso de máquina Virtual e para tanto podemos escolher entre as seguintes opções:
 
@@ -172,7 +175,9 @@ Instalar SQL Server com as seguintes características:
 
 ---
 
-## Conceitos essenciais sobre Máquinas Virtuais e Físicas
+## Seção 3: Onde o Serviço do Banco de Dados está instalado
+
+### Conceitos essenciais sobre Máquinas Virtuais e Físicas
 
 ### Onde o SGBD está instalado?
 
