@@ -315,6 +315,7 @@ Em resumo, o vNUMA ajuda a otimizar a performance de VMs em servidores com múlt
 Wmic CPU Get NumberOfCores, NumberOfLogicalProcessors /Format:List
 ```
 ![img-WmicRetornoHyperthreadingHabilitado.png](./Imagens/WmicRetornoHyperthreadingHabilitado.png)
+
 Para habilitar o hyperthreading
 
 - BIOS
