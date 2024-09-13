@@ -484,7 +484,7 @@ Parâmetros a serem verificados:
 - **Opção 2**
     - Abra um prompt de comando como administrador e digite:
 
-```
+```cmd
 Wmic partition get Blocksize, StartingOffset, Name, Index
 ```
 
@@ -493,7 +493,7 @@ Wmic partition get Blocksize, StartingOffset, Name, Index
 - **Verificar o tamanho do bloco de dados**:
     - Abra um prompt de comando como administrador e digite
 
-```
+```cmd
 FSutil FSinfo NTFSinfo <drive>
 ```
 ![img-TamanhoBlocosDados.png](./Imagens/TamanhoBlocosDados.png)
@@ -549,3 +549,46 @@ Lock Pages in Memory (LPIM) permite que a memória alocada pelo SQL Server não 
 Habilitando o Lock Pages in Memory no Windows Server
 
 - Em Local Security Policy, expanda a pasta Local Polices, clique em User Rights Assignment, localize por "**Lock pages in memory**" e clique para abrir, observe que deverá estar vazio caso ainda não tenha sido definido nenhum valor
+
+**ATENÇÃO: Não está concluido**
+
+## Memória
+
+A Memória é um dos principais componentes em termos de performance
+1. **Velocidade da Memória Física**: A memória RAM é significativamente mais rápida que os discos SSD e HDD. A RAM pode ser dezenas de vezes mais rápida que os SSDs e cerca de 100 vezes mais rápida que os HDDs, o que torna a leitura e escrita de dados muito mais eficiente.
+
+2. **Instanciação de Dados em Memória**: Quanto mais dados o SQL Server puder manter na memória, menos ele precisará acessar o disco. Isso reduz a latência e melhora a performance geral das consultas e operações de banco de dados.
+
+3. **Configuração de Memória**: Configurar a quantidade de memória disponível para o SQL Server é relativamente simples. Pode ser feito através das configurações de memória mínima e máxima no SQL Server Management Studio (SSMS) ou via comandos T-SQL.
+
+Principais componentes de Memória do SQL Server
+1. **Buffer Cache**: Armazena páginas de dados lidas do disco para reduzir a necessidade de leituras físicas repetidas
+2. **Procedure Cache**: Guarda planos de execução de procedimentos armazenados e consultas ad hoc para reutilização, melhorando a eficiência
+3. **Log Cache**: Mantém registros de transações antes de serem gravados no disco, otimizando a performance de escrita
+4. **Compile Memory**: Utilizada durante a compilação de consultas e procedimentos armazenados
+5. **Lock Manager Memory**: Gerencia a memória usada para controlar locks, garantindo a consistência e a integridade dos dados
+6. **CLR Memory**: Aloca memória para o Common Language Runtime (CLR) quando código gerenciado é executado dentro do SQL Server
+
+Estes valores estão limitados aos valores Máximo e Mínimo definidos para a Memória que será reservada para o SQL Server.
+
+### Alguns Componentes que Consomem Memória Fora dos Parâmetros de Memória do Servidor
+- **Memória do CLR**: Utilizada para executar código gerenciado.
+- **Memória do Filestream**: Para armazenar dados binários grandes.
+- **Memória do Backup**: Utilizada durante operações de backup e restauração.
+- **Memória do Extended Events**: Para monitoramento e diagnóstico de eventos.
+- **Memória do SSIS**: Para executar pacotes de integração de dados.
+- **Linked Servers**: Podem consumir memória adicional para gerenciar conexões e operações remotas.
+
+Esses componentes são gerenciados separadamente e não estão sujeitos aos limites configurados pelos parâmetros de memória do servidor.
+
+### Conclusão sobre o Uso da Memória no SQL Server
+
+A memória desempenha um papel crucial na performance do SQL Server. A velocidade superior da memória RAM em comparação com SSDs e HDDs permite que o SQL Server execute operações de leitura e escrita de forma muito mais eficiente. Configurar adequadamente a memória disponível para o SQL Server é uma tarefa relativamente simples e pode resultar em melhorias significativas de desempenho.
+
+Além disso, é importante estar ciente de que alguns componentes, como CLR, Filestream, operações de backup, Extended Events, SSIS e Linked Servers, consomem memória fora dos parâmetros "Maximum Server Memory" e "Minimum Server Memory". Gerenciar esses componentes de forma eficaz pode ajudar a otimizar o uso geral da memória e garantir que o SQL Server opere de maneira eficiente.
+
+Em resumo, uma boa gestão da memória é essencial para maximizar a performance do SQL Server, e entender os diferentes componentes que utilizam memória pode ajudar a tomar decisões informadas para otimização.
+
+### Exercício
+
+Como verificar e alterar o parâmetro máximo e mínimo da memória para o SQL Server.
