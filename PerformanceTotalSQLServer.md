@@ -436,7 +436,7 @@ Tipos mais comuns de Array de Discos (RAID)
 
 **Conectando todas estas tecnologias e vizualizando dentro da VM**
 
-![img-TecnoloviaStorageVM.png](./Imagens/TecnoloviaStorageVM.png)
+![img-TecnologiaStorageVM.png](./Imagens/TecnologiaStorageVM.png)
 
 Utilização otimizada do Storage para melhor performance do Banco de Dados
 - RAID 10 para Dados, Logs e Tempdb
@@ -539,3 +539,13 @@ Configure o parâmetro "**Receive Side Scalling (RSS)**" para "**Enable**", ele 
 - Em Control Panel, localize por Network and Internet, em seguida clique em Network and Sharing Center, do lado esquerdo clique em Change adapter settings, em seguida clique com o botão direito sobre a placa de rede e selecione Properties e clique no botão Configure, selecione a Guia Advanced e procure por "**Receive Side Scaling**" e altere para "**Enable**", caso não esteja com este valor. Na figura abaixo podemos observar que este parâmetro está desabilitado:
 
 ![img-RedeConfiguracaoRSS.png](./Imagens/RedeConfiguracaoRSS.png)
+
+### Memória
+
+Lock Pages in Memory (LPIM) permite que a memória alocada pelo SQL Server não seja liberada para o Sistema Operacional, mesmo em casos onde ocorra pressão de memória.
+
+![img-LockPagesInMemory.png](./Imagens/LockPagesInMemory.png)
+
+Habilitando o Lock Pages in Memory no Windows Server
+
+- Em Local Security Policy, expanda a pasta Local Polices, clique em User Rights Assignment, localize por "**Lock pages in memory**" e clique para abrir, observe que deverá estar vazio caso ainda não tenha sido definido nenhum valor
