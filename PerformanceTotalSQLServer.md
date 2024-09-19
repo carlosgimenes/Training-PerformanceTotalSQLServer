@@ -592,3 +592,9 @@ Em resumo, uma boa gestão da memória é essencial para maximizar a performance
 ### Exercício
 
 Como verificar e alterar o parâmetro máximo e mínimo da memória para o SQL Server.
+
+---
+
+## Deste ponto para frente adotei uma nova abordagem para acompanhamento do treinamento e apontamentos (trecho anterior será revisto)
+
+--
