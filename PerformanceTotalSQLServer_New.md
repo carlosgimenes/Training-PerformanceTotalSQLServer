@@ -2,8 +2,8 @@
 
 ### **Instrutor**: Vínicius Nogueira
 ### **Linkedin**: [Perfil do LinkeIn](https://www.linkedin.com/in/viniciusnogueira/)
-### **Página do curso na Udemy**: [Link para página do curso](https://www.udemy.com/course/performance-total-no-sql-server/learn/lecture/26043050?start=0#overview)
-### **Pasta Google Drive Treinamento**: [Link para pasta do curso](https://drive.google.com/drive/folders/1DzaUlE7JZ8Sjoir8pWCLPQak6zVjqMDm?usp=drive_link)
+### **Página do curso na Udemy**: [Link para página do curso na Udemy](https://www.udemy.com/course/performance-total-no-sql-server/learn/lecture/26043050?start=0#overview)
+### **Pasta de apoio ao  Treinamento no Google Drive**: [Link para pasta do curso no Google Drive](https://drive.google.com/drive/folders/1DzaUlE7JZ8Sjoir8pWCLPQak6zVjqMDm?usp=drive_link)
 ### **Início**: 03/09/2024
 ### **Término**: 
 
@@ -13,7 +13,7 @@ Me considerando um Administrador de Banco de Dados com muitos anos de experiênc
 
 ## Índice
 - [Seção 1: Visão Geral do Curso Performance Total no SQL Server](#seção-1-visão-geral-do-curso-performance-total-no-sql-server)
-- [Seção 2: Preparação do Ambiente](#seção-2-preparação-do-ambiente)
+- [Seção 2: Preparação do Laboratório](#seção-2-preparação-do-laboratório)
 - [Seção 3: Onde o Seviço do Banco de Dados está Instalado](#seção-3-onde-o-serviço-do-banco-de-dados-está-instalado)
 - [Seção 4: Como o Serviço do Banco de Dados está Instalado](#seção-4-como-o-serviço-do-banco-de-dados-está-instalado)
 - [Seção 5: Como o Serviço do Banco de Dados é Acessado pelos Usuários e Aplicações](#seção-5-como-o-serviço-do-banco-de-dados-é-acessado-pelos-usuários-e-aplicações)
@@ -29,19 +29,37 @@ Me considerando um Administrador de Banco de Dados com muitos anos de experiênc
 
 ### Visão Geral do Curso
 
-#### Introdução
+### Introdução
 
-- Tarefas devem ser executadas dentro de um tempo aceitável.
-- Em empresas menores, a performance normalmente é colocada de lado, e problemas são observados geralmente quando o sistema já está em produção.
-- É feito um bom trabalho de análise de requisitos, desenvolvimento e testes, porém sem levar em conta cenários realistas.
-- A solução de problemas de performance normalmente ocorre quando o sistema já está em uso, gerando muitas vezes indisponibilidade.
-- Normalmente, esses problemas são decorrentes de questões de design e estrutura.
+A performance de um sistema é crucial para garantir que as tarefas sejam executadas dentro de um tempo aceitável, proporcionando uma boa experiência ao usuário e mantendo a produtividade. No entanto, problemas de performance podem afetar empresas de todos os tamanhos, desde pequenas startups até grandes corporações. Vamos explorar alguns dos principais desafios de performance encontrados em ambientes de produção:
+
+- **Negligência Inicial**: A performance é frequentemente deixada de lado durante as fases iniciais de desenvolvimento. Isso ocorre porque o foco está em entregar funcionalidades, e a performance só é considerada quando os problemas já estão impactando os usuários finais.
+  
+- **Custo Elevado de Correção**: Resolver problemas de performance em produção é significativamente mais caro e complexo. Muitas vezes, esses problemas estão relacionados a questões básicas de design e estrutura do aplicativo, que poderiam ter sido evitadas com uma abordagem proativa.
+
+- **Falta de Especialização**: Muitas empresas não possuem um DBA (Administrador de Banco de Dados) dedicado ao desenvolvimento do sistema. Isso resulta em uma falta de foco na otimização de performance desde o início do ciclo de desenvolvimento.
+
+- **Análise de Requisitos e Testes**: Embora seja comum realizar uma boa análise de requisitos e testes, esses processos frequentemente não levam em conta cenários realistas de carga e uso. Isso resulta em sistemas que funcionam bem em ambientes de teste, mas falham em produção.
+
+- **Indisponibilidade e Impacto no Negócio**: A solução de problemas de performance geralmente ocorre quando o sistema já está em uso, o que pode causar indisponibilidade e impactar negativamente o negócio. Problemas de performance podem levar a tempos de resposta lentos, insatisfação dos usuários e perda de produtividade.
+
+- **Questões de Design e Estrutura**: Muitos problemas de performance são decorrentes de decisões de design e estrutura inadequadas. Isso inclui a falta de índices apropriados, consultas SQL ineficientes e uma arquitetura de banco de dados mal planejada.
+
+Para enfrentar esses desafios, é essencial adotar uma visão holística de performance, que inclua:
+
+1. **Planejamento Proativo**: Considerar a performance desde as fases iniciais de planejamento e design do sistema.
+2. **Testes Realistas**: Realizar testes de carga e stress que simulem cenários reais de uso.
+3. **Monitoramento Contínuo**: Implementar ferramentas de monitoramento para identificar e resolver problemas de performance antes que eles impactem os usuários finais.
+4. **Otimização Contínua**: Revisar e otimizar regularmente o design do banco de dados, as consultas SQL e a infraestrutura subjacente.
+5. **Capacitação da Equipe**: Investir na capacitação da equipe de desenvolvimento e operações para que todos estejam cientes das melhores práticas de performance.
+
+Com essa abordagem, é possível minimizar os problemas de performance e garantir que o sistema funcione de maneira eficiente e confiável, proporcionando uma melhor experiência para os usuários e suportando o crescimento do negócio. Nosso treinamento terá como foco principal a **Performance**, abordando todas essas áreas para garantir um entendimento completo e prático do assunto.
 
 #### SQL Server - Performance
 
 No ciclo comum de desenvolvimento de uma aplicação, a performance normalmente é observada na fase de Processamento, onde são feitos testes, QA estressa a aplicação e, com base nos resultados, são feitas avaliações de performance. No entanto, isso deveria ser visto ainda na fase de Recursos.
 
-![Ciclo de Análise de Performance](images/ciclo_analise_performance.png)
+![Ciclo de Análise de Performance](./images/PerformanceSQL-CicloAnalisePerformance.png)
 
 Não basta aumentarmos os recursos de máquina e acharmos que isso irá resolver os problemas de performance; precisamos identificar os gargalos do nosso sistema.
 
@@ -68,9 +86,9 @@ Passaremos pelos seguintes níveis de análise:
 - Otimização em nível de banco de dados e aplicações
 - Monitoramento e diagnóstico de performance
 
-![Níveis de Monitoramento](images/niveis_monitoramento.png)
+![Níveis de Monitoramento](./images/PerformanceSQL-NiveisMonitoramento.png)
 
-## Seção 2: Preparação do Ambiente
+## Seção 2: Preparação do Laboratório
 
 ### Como será nosso Laboratório de Treinamento
 
@@ -96,13 +114,18 @@ Passaremos pelos seguintes níveis de análise:
 
 Optamos por usar o **VirtualBox** e vamos criar uma VM com as seguintes características:
 
-- **Nome**: SQL-WIN-01
-- **Local do arquivo**: C:\Users\UserName\VirtualBox VMs
-- **Tipo**: Microsoft Windows
-- **Versão**: Windows 2019 (64-bit)
-- **Hardware**:
-  - **Memória Base**: 3.0 GB
-  - **HD**: 30 GB
+**Servidor Windows Server 2019 (1 VM):**
+
+- **Nome da VM:** `LAB-DB-VM01`
+- **Memória RAM:** 2GB
+- **CPU:** 2 núcleos (ajustável)
+- **Disco:** 30GB (ou mais conforme necessário)
+- **Rede:**
+  - Modo de rede: **Bridge**
+  - IP: **192.168.0.103**
+  - Gateway: **192.168.0.1**
+  - DNS: **192.168.0.1 8.8.8.8**
+- **Função no laboratório:** Servidor SQL Server.
 
 Após criar a VM, iremos fazer a instalação do Sistema Operacional escolhido (Windows Server 2019 Evaluation Edition), com as seguintes características:
 
